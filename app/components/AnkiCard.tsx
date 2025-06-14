@@ -11,30 +11,19 @@ type Props = {
   isLoading?: boolean
 }
 
-const AnkiCard = ({
-  questionData,
-  onNextQuestion,
-  isLoading = false,
-}: Props) => {
+const AnkiCard = ({ questionData }: Props) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped)
   }
 
-  const handleNextQuestion = (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent card flip when clicking next button
-    setIsFlipped(false) // Reset to question side
-    onNextQuestion?.()
-  }
-
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-2 sm:p-4 md:p-6">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-2 sm:p-2 md:p-2">
       <div
         className="relative w-full max-w-4xl h-[70vh] min-h-[500px] max-h-[800px] cursor-pointer touch-manipulation"
         onClick={handleFlip}
       >
-        {/* Card Container */}
         <motion.div
           className="w-full h-full relative preserve-3d"
           animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -78,7 +67,6 @@ const AnkiCard = ({
                   ))}
                 </ul>
 
-                {/* Tap instruction for mobile */}
                 <div className="mt-6 text-center">
                   <div className="inline-flex items-center px-3 py-2 bg-blue-50 rounded-full text-xs sm:text-sm text-blue-600 border border-blue-200">
                     <span className="mr-2">👆</span>
@@ -89,7 +77,6 @@ const AnkiCard = ({
             </div>
           </motion.div>
 
-          {/* Back of Card */}
           <motion.div
             className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-green-400 to-blue-500 rounded-xl shadow-lg border-2 border-green-300 flex items-center justify-center p-3 sm:p-4 md:p-6"
             style={{
@@ -115,7 +102,6 @@ const AnkiCard = ({
                   <ReactMarkdown>{questionData.explanation}</ReactMarkdown>
                 </div>
 
-                {/* Tap instruction for mobile */}
                 <div className="mt-6 text-center">
                   <div className="inline-flex items-center px-3 py-2 bg-green-50 rounded-full text-xs sm:text-sm text-green-600 border border-green-200">
                     <span className="mr-2">👆</span>
@@ -126,28 +112,6 @@ const AnkiCard = ({
             </div>
           </motion.div>
         </motion.div>
-
-        {/* Flip Indicator - Positioned better for mobile */}
-        {/* <motion.div
-          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 text-center z-10"
-          animate={{ opacity: [1, 0.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-gray-200">
-            <div className="flex items-center space-x-2">
-              <motion.div
-                animate={{ rotate: isFlipped ? 180 : 0 }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
-                className="text-gray-600 text-lg"
-              >
-                ↻
-              </motion.div>
-              <div className="text-xs sm:text-sm text-gray-600">
-                {isFlipped ? 'Answer' : 'Question'}
-              </div>
-            </div>
-          </div>
-        </motion.div> */}
       </div>
     </div>
   )

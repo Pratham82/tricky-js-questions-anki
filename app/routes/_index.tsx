@@ -3,8 +3,8 @@ import { json, LoaderFunction } from '@remix-run/node'
 import { useFetcher, useLoaderData } from '@remix-run/react'
 import { getRandomQuestion, type Question } from '../utils/get-random-questions'
 import AnkiCard from '~/components/AnkiCard'
-
 import { motion } from 'framer-motion'
+import QuizTitle from '~/components/QuizTitle'
 
 export const meta: MetaFunction = () => {
   return [
@@ -31,6 +31,7 @@ export default function Index() {
 
   return (
     <div>
+      <QuizTitle />
       <AnkiCard questionData={question} />
       <div className="w-[100%] border border-red-500">
         <motion.button
