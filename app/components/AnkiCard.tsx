@@ -58,7 +58,24 @@ const AnkiCard = ({ questionData }: Props) => {
 
                 {questionData.code && (
                   <div className="rounded-md overflow-x-auto text-sm sm:text-base md:text-lg">
-                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeHighlight]}
+                      components={{
+                        code({ node, inline, className, children, ...props }) {
+                          return !inline ? (
+                            <pre className="overflow-x-auto">
+                              <code className={className} {...props}>
+                                {children}
+                              </code>
+                            </pre>
+                          ) : (
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          )
+                        },
+                      }}
+                    >
                       {`\`\`\`js\n${questionData.code}\n\`\`\``}
                     </ReactMarkdown>
                   </div>
