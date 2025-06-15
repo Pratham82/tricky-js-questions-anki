@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import 'highlight.js/styles/atom-one-dark.css' // theme
@@ -23,6 +23,15 @@ const AnkiCard = ({ questionData }: Props) => {
       <div
         className="relative w-full max-w-4xl h-[70vh] min-h-[500px] max-h-[800px] cursor-pointer touch-manipulation"
         onClick={handleFlip}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleFlip()
+          }
+        }}
+        aria-pressed={isFlipped}
       >
         <motion.div
           className="w-full h-full relative preserve-3d"
