@@ -17,7 +17,7 @@ export default function QuizTitle() {
           backgroundSize: '200% 200%',
         }}
       >
-        Tricky JS Question
+        Tricky JS Questions
       </motion.h1>
 
       <div
